@@ -1,0 +1,44 @@
+<!-- views/index.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles/main.css">
+    <title>Money Tracker</title>
+</head>
+<body>
+    <h1>Money Tracker</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Description</th>
+                <th>Amount</th>
+                <th>Date</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% let counter = 1; %>
+            <% transactions.forEach(transaction => { %>
+                <tr>
+                    <td><%= counter++ %></td> 
+                    <td><%= transaction.description %></td>
+                    <td><%= transaction.amount %></td>
+                    <td><%= transaction.date.toDateString() %></td>
+                    <td>
+                        <form action="/edit/<%= transaction._id %>" method="get" style="display:inline;">
+                            <button type="submit">Edit</button>
+                        </form>
+                        <form action="/delete/<%= transaction._id %>" method="get" style="display:inline;">
+                            <button type="submit">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+    <a href="/addTransaction" class="bn">Add Transaction</a>
+</body>
+</html>
